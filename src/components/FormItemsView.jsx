@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export const FormItemsView = (handler) => {
+export const FormItemsView = ({handler}) => {
   const [formItemsState, setFormItemsState] = useState({
     product: "",
     price: "",
@@ -10,11 +10,11 @@ export const FormItemsView = (handler) => {
   const { product, price, quantity } = formItemsState;
 
   useEffect(() => {
-    console.log("el precio cambio");
+    //console.log("el precio cambio");
   }, [price]);
 
   useEffect(() => {
-    console.log("el formulario cambio");
+    //console.log("el formulario cambio");
   }, [formItemsState]);
 
   const onInputChange = ({ target: { name, value } }) => {
@@ -25,7 +25,7 @@ export const FormItemsView = (handler) => {
     });
   };
 
-  const onInvoiceItemsSubmit = () => {
+  const onInvoiceItemsSubmit = (event) => {
     event.preventDefault();
     //validación para el formulario
     if (product.trim().length <= 1) return;

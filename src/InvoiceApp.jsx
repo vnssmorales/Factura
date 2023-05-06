@@ -28,6 +28,7 @@ const invoiceInitial = {
 };
 export const InvoiceApp = () => {
 
+  const [activeForm, setActiveForm] = useState(false);
   const [total, setTotal] = useState(0);
   const [counter, setCounter] = useState(4); //inicializamos en 4 porque ya hay 3 items, cuando empezemos a agregar productos sera desde el 4
   const [invoice, setInvoice] = useState(invoiceInitial); //siempre se necesita un estado inicial
@@ -43,15 +44,15 @@ export const InvoiceApp = () => {
   }, []); //evento del ciclo de vida que se ejecuta solo 1 vez cuando se crea el componente
 
   useEffect(() => {
-    console.log('el contador cambio');
+    //console.log('el contador cambio');
   }, [counter])
 
   useEffect(() => {
     setTotal(calculateTotal(items))
-    console.log('el total cambio');
+    //console.log('el total cambio');
   }, [items])
 
-  const handlerAddInvoiceItems = ({product, price, quantity}) => {
+  const handlerAddItems = ({product, price, quantity}) => {
 
     setItems([
       ...items,
@@ -65,6 +66,10 @@ export const InvoiceApp = () => {
   
     setCounter(counter + 1);
   };
+
+  const onActiveForm = () => {
+    setActiveForm(!activeForm); //para que haga lo contrario a lo que hay, ocultar o mostrar w
+  }
 
   return (
     <>
@@ -87,7 +92,10 @@ export const InvoiceApp = () => {
               items={items}
             />
             <TotalView total={total} />
-            <FormItemsView handler={(newItems) => handlerAddInvoiceItems(newItems) }/>
+            <button className="btn btn-secondary"
+              onClick={onActiveForm}>{!activeForm ? 'Agregar Item' : 'Ocultar Form'}</button>
+            {!activeForm ||  <FormItemsView handler={(newItems) => handlerAddItems(newItems) }/>}
+           
           </div>
         </div>
       </div>
