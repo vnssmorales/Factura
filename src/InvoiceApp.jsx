@@ -67,6 +67,10 @@ export const InvoiceApp = () => {
     setCounter(counter + 1);
   };
 
+  const handlerDeleteItem = (id) => {
+    setItems(items.filter( item => item.id !== id))
+  }
+
   const onActiveForm = () => {
     setActiveForm(!activeForm); //para que haga lo contrario a lo que hay, ocultar o mostrar w
   }
@@ -89,7 +93,7 @@ export const InvoiceApp = () => {
 
             <ListTableItemsView
               title={"Productos de la factura"}
-              items={items}
+              items={items} handlerDeleteItem = {id => handlerDeleteItem(id)}
             />
             <TotalView total={total} />
             <button className="btn btn-secondary"
